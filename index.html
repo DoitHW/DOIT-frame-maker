@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOIT Tramas WebApp</title>
+  <!-- Se incorporan los iconos de Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2e7eff;
+      --secondary-color: #1a5fc4;
+      --text-color: #f0f0f0;
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --input-bg: #2a2a2a;
+      --border-color: #333;
+      --success-color: #2ecc71;
+      --danger-color: #e74c3c;
+      --warning-color: #f39c12;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: #999;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+    .card-header {
+      background-color: rgba(46,126,255,0.15);
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .card-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    .card-header h2 i {
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+    .card-body {
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .col {
+      flex: 1;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    label i {
+      margin-right: 6px;
+      width: 16px;
+      text-align: center;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      color: var(--text-color);
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(46,126,255,0.25);
+    }
+    .select-container {
+      position: relative;
+    }
+    .select-container::after {
+      content: "▼";
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      pointer-events: none;
+    }
+    .hidden {
+      display: none;
+    }
+    .btn {
+      padding: 12px 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s, transform 0.1s;
+      text-align: center;
+    }
+    .btn i {
+      margin-right: 8px;
+    }
+    .btn:hover {
+      background-color: var(--secondary-color);
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .btn.small {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+    .btn.primary {
+      background-color: var(--primary-color);
+    }
+    .action-buttons {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .output {
+      background: var(--input-bg);
+      padding: 15px;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      min-height: 60px;
+    }
+    .trama-output {
+      margin-top: 20px;
+    }
+    .output-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .output-header i {
+      color: var(--primary-color);
+      margin-right: 5px;
+    }
+    .input-with-button {
+      display: flex;
+      gap: 10px;
+    }
+    .input-with-button input {
+      flex: 1;
+    }
+    .color-preview {
+      width: 50px;
+      height: 20px;
+      border-radius: 3px;
+      border: 1px solid var(--border-color);
+      margin-left: 10px;
+    }
+    .color-picker-row {
+      align-items: flex-end;
+    }
+    .color-input {
+      height: 40px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    input[type="color"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 40px;
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 0;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+    input[type="color"]::-webkit-color-swatch {
+      border: none;
+      border-radius: 3px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+      border-top: 1px solid var(--border-color);
+      color: #888;
+    }
+    .output-container {
+      margin-top: 20px;
+    }
+    .fade-in {
+      animation: fadeIn 0.3s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .copy-toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--success-color);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      animation: fadeOut 2s forwards;
+    }
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @media (max-width: 768px) {
+      .form-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .input-with-button {
+        flex-direction: column;
+      }
+      .card-header h2 {
+        font-size: 1.3rem;
+      }
+      .container {
+        padding: 10px;
+      }
+    }
+    .decoded-item {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+    }
+    .decoded-item:last-child {
+      border-bottom: none;
+    }
+    .decoded-item .icon {
+      width: 24px;
+      margin-right: 10px;
+      text-align: center;
+      color: var(--primary-color);
+    }
+    .decoded-item .label {
+      font-weight: bold;
+      margin-right: 10px;
+      min-width: 100px;
+    }
+    .decoded-item .value {
+      font-family: 'Courier New', monospace;
+    }
+    .decoded-item.checksum.valid {
+      color: var(--success-color);
+    }
+    .decoded-item.checksum.invalid {
+      color: var(--danger-color);
+    }
+  </style>
+</head>
+<body onload="actualizarVistaDatos()">
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-microchip"></i> DOIT Tramas WebApp</h1>
+      <p class="subtitle">Generador y Decodificador de Tramas</p>
+    </header>
+
+    <!-- GENERADOR DE TRAMAS -->
+    <div class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-code"></i> Generador de Tramas</h2>
+      </div>
+      <div class="card-body">
+        <!-- Origen y destino -->
+        <div class="form-group">
+          <label for="origen"><i class="fas fa-broadcast-tower"></i> Origen:</label>
+          <div class="select-container">
+            <select id="origen" onchange="toggleOrigenInput()">
+              <option value="DB">BOTONERA (0xDB)</option>
+              <option value="DC">CONSOLA (0xDC)</option>
+              <option value="DD">DEFAULT_DEVICE (0xDD)</option>
+              <option value="FF">BROADCAST (0xFF)</option>
+              <option value="custom">Otro...</option>
+            </select>
+          </div>
+          <input id="origenCustom" placeholder="Ej: A5" class="hidden">
+        </div>
+        <div class="form-group">
+          <label for="destino"><i class="fas fa-laptop-code"></i> Destino(s):</label>
+          <input id="destino" placeholder="Ej: FF o FF DB DC (separados por espacios)">
+        </div>
+        <!-- Función -->
+        <div class="form-group">
+          <label for="function"><i class="fas fa-cogs"></i> Función:</label>
+          <div class="select-container">
+            <select id="function" onchange="actualizarVistaDatos()">
+              <option value="C1">F_SEND_COLOR</option>
+              <option value="C2">F_SEND_RGB</option>
+              <option value="CE">F_SEND_FLAG_BYTE</option>
+              <option value="CA">F_SEND_SENSOR_VALUE</option>
+              <option value="CF">F_SEND_COMMAND</option>
+              <option value="A0">F_REQ_ELEM_SECTOR</option>
+              <option value="B1">F_SET_ELEM_ID</option>
+              <option value="B2">F_SET_ELEM_MODE</option>
+              <option value="B3">F_SET_ELEM_DEAF</option>
+              <option value="CC">F_SEND_FILE_NUM</option>
+              <option value="CD">F_SEND_PATTERN_NUM</option>
+            </select>
+          </div>
+        </div>
+        <!-- Paneles específicos para cada función -->
+        <div id="sectorSelector" class="form-group hidden">
+          <label for="sector"><i class="fas fa-folder-open"></i> Sector:</label>
+          <div class="select-container">
+            <select id="sector"></select>
+          </div>
+        </div>
+        <div id="idiomaSelector" class="form-group hidden">
+          <label for="idioma"><i class="fas fa-language"></i> Idioma:</label>
+          <div class="select-container">
+            <select id="idioma">
+              <option value="1">ES</option>
+              <option value="2">EN</option>
+              <option value="3">DE</option>
+              <option value="4">FR</option>
+              <option value="5">ES_MX</option>
+              <option value="6">CA</option>
+              <option value="7">EU</option>
+              <option value="8">X</option>
+              <option value="9">X1</option>
+            </select>
+          </div>
+        </div>
+        <div id="colorSelector" class="form-group hidden">
+          <label for="color"><i class="fas fa-palette"></i> Color:</label>
+          <div class="select-container">
+            <select id="color"></select>
+          </div>
+        </div>
+        <div id="rgbSelector" class="form-group hidden">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="rVal"><i class="fas fa-circle" style="color: red;"></i> R:</label>
+              <input id="rVal" placeholder="0-255 o 0xFF" type="text">
+            </div>
+            <div class="form-group col">
+              <label for="gVal"><i class="fas fa-circle" style="color: green;"></i> G:</label>
+              <input id="gVal" placeholder="0-255 o 0xFF" type="text">
+            </div>
+            <div class="form-group col">
+              <label for="bVal"><i class="fas fa-circle" style="color: blue;"></i> B:</label>
+              <input id="bVal" placeholder="0-255 o 0xFF" type="text">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="rgbPicker"><i class="fas fa-eye-dropper"></i> Selector:</label>
+              <input type="color" id="rgbPicker" class="color-input">
+            </div>
+          </div>
+        </div>
+        <div id="flagSelector" class="form-group hidden">
+          <label for="flag"><i class="fas fa-toggle-on"></i> Estado:</label>
+          <div class="select-container">
+            <select id="flag">
+              <option value="01">ON</option>
+              <option value="00">OFF</option>
+            </select>
+          </div>
+        </div>
+        <div id="sensorSelector" class="form-group hidden">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="minVal"><i class="fas fa-temperature-low"></i> Valor mínimo:</label>
+              <input id="minVal" type="number">
+            </div>
+            <div class="form-group col">
+              <label for="maxVal"><i class="fas fa-temperature-high"></i> Valor máximo:</label>
+              <input id="maxVal" type="number">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="valVal"><i class="fas fa-thermometer-half"></i> Valor actual:</label>
+            <input id="valVal" type="number">
+          </div>
+        </div>
+        <div id="commandSelector" class="form-group hidden">
+          <label for="commandSel"><i class="fas fa-terminal"></i> Comando:</label>
+          <div class="select-container">
+            <select id="commandSel"></select>
+          </div>
+        </div>
+        <!-- Nuevos paneles para funciones adicionales -->
+        <div id="elemModeSelector" class="form-group hidden">
+          <label for="elemMode"><i class="fas fa-sliders-h"></i> Modo Elemento (0x00 a 0x0F):</label>
+          <input id="elemMode" placeholder="Ej: 0x00" type="text">
+        </div>
+        <div id="elemDeafSelector" class="form-group hidden">
+          <label for="elemDeaf"><i class="fas fa-volume-mute"></i> Tiempo Ensordecer (0x00 a 0xFF):</label>
+          <input id="elemDeaf" placeholder="Ej: 0x00" type="text">
+        </div>
+        <div id="fileNumSelector" class="form-group hidden">
+          <label><i class="fas fa-file-alt"></i> Número de Archivo:</label>
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="fileBank"><i class="fas fa-university"></i> Bank:</label>
+              <input id="fileBank" placeholder="Ej: 0x00" type="text">
+            </div>
+            <div class="form-group col">
+              <label for="fileNum"><i class="fas fa-hashtag"></i> File:</label>
+              <input id="fileNum" placeholder="Ej: 0x00" type="text">
+            </div>
+          </div>
+        </div>
+        <div id="patternNumSelector" class="form-group hidden">
+          <label for="patternNum"><i class="fas fa-th"></i> Número de Patrón (0x00 a 0xFF):</label>
+          <input id="patternNum" placeholder="Ej: 0x00" type="text">
+        </div>
+        <!-- Si la función seleccionada no es de las especializadas, se muestra el campo de Datos -->
+        <div id="dataInput" class="form-group hidden">
+          <label for="data"><i class="fas fa-cubes"></i> Datos (hex separados por espacio):</label>
+          <input id="data" placeholder="Ej: 03 o 01 FF">
+        </div>
+        <div class="action-buttons">
+          <button class="btn primary" onclick="generarTrama()">
+            <i class="fas fa-hammer"></i> Generar Trama
+          </button>
+        </div>
+        <div class="trama-output">
+          <div class="output-header">
+            <span><i class="fas fa-code"></i> Trama Generada:</span>
+            <button class="btn small" onclick="copiarTrama()" id="copyBtn">
+              <i class="fas fa-copy"></i> Copiar
+            </button>
+          </div>
+          <div class="output" id="tramaHex"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- DECODIFICADOR DE TRAMAS -->
+    <div class="card">
+      <div class="card-header">
+        <h2><i class="fas fa-microscope"></i> Decodificador de Tramas</h2>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="inputTrama"><i class="fas fa-paste"></i> Trama a decodificar:</label>
+          <div class="input-with-button">
+            <input id="inputTrama" placeholder="Ej: 0xE1 0x00 0x09 0xDB 0x01 0xDD 0xC1 0x00 0x01 0x00 0x24 0xBB">
+            <button class="btn" onclick="usarTramaGenerada()">
+              <i class="fas fa-download"></i> Usar trama generada
+            </button>
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="btn primary" onclick="decodificarTrama()">
+            <i class="fas fa-search"></i> Decodificar Trama
+          </button>
+        </div>
+        <div class="output-container">
+          <div class="output-header">
+            <span><i class="fas fa-info-circle"></i> Resultado:</span>
+          </div>
+          <div class="output" id="resultado"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>DOIT Tramas WebApp &copy; 2023</p>
+  </footer>
+  
+  <script>
+    // Función que permite interpretar valores en decimal o hexadecimal
+    function parseColorValue(val) {
+      val = val.trim();
+      if(val.startsWith("0x") || val.startsWith("0X")) {
+        return parseInt(val, 16);
+      }
+      if(!/^\d+$/.test(val) && /^[0-9A-Fa-f]+$/.test(val)) {
+        return parseInt(val, 16);
+      }
+      return parseInt(val, 10) || 0;
+    }
+    
+    /* Tablas de mapeo */
+    const colorMap = {
+      0x00:"BLANCO",0x01:"AMARILLO",0x02:"NARANJA",0x03:"ROJO",0x04:"VIOLETA",0x05:"AZUL",
+      0x06:"CELESTE",0x07:"VERDE",0x08:"NEGRO",0x09:"RELAY",0x0F:"CREMA",0x1F:"ROSA",
+      0x1E:"LILA",0x1B:"CELESTE CLARO",0x19:"TURQUESA",0x10:"VERDE CLARO",0x20:"ROSA OSCURO",
+      0x12:"VERDE OLIVA",0x14:"VERDE LIMA",0x0E:"VERDE AMARILLO",0x22:"MAGENTA",0x1D:"MORADO",
+      0x17:"VERDE AZULADO",0x0B:"MARRÓN",0x1C:"ÍNDIGO",0x18:"AZUL VERDOSO",0x16:"ESMERALDA",
+      0x1A:"CYAN",0x15:"VERDE MENTA",0x0D:"AMARILLO ANARANJADO",0x21:"ROSA FUERTE",
+      0x0A:"MARRÓN OSCURO",0x13:"VERDE GRISACEO",0x11:"VERDE OLIVA CLARO",0x23:"SALMÓN"
+    };
+    
+    const idiomaMap = {
+      1:"ES", 2:"EN", 3:"DE", 4:"FR", 5:"ES_MX", 6:"CA", 7:"EU", 8:"X", 9:"X1"
+    };
+    
+    const sectorList = {
+      0:"ELEM_NAME_SECTOR",1:"ELEM_DESC_SECTOR",2:"ELEM_SERIAL_SECTOR",3:"ELEM_ID_SECTOR",4:"ELEM_CMODE_SECTOR",
+      5:"ELEM_MODE_0_NAME_SECTOR",6:"ELEM_MODE_0_DESC_SECTOR",7:"ELEM_MODE_0_FLAG_SECTOR",8:"ELEM_MODE_1_NAME_SECTOR",
+      9:"ELEM_MODE_1_DESC_SECTOR",10:"ELEM_MODE_1_FLAG_SECTOR",11:"ELEM_MODE_2_NAME_SECTOR",12:"ELEM_MODE_2_DESC_SECTOR",
+      13:"ELEM_MODE_2_FLAG_SECTOR",14:"ELEM_MODE_3_NAME_SECTOR",15:"ELEM_MODE_3_DESC_SECTOR",16:"ELEM_MODE_3_FLAG_SECTOR",
+      17:"ELEM_MODE_4_NAME_SECTOR",18:"ELEM_MODE_4_DESC_SECTOR",19:"ELEM_MODE_4_FLAG_SECTOR",20:"ELEM_MODE_5_NAME_SECTOR",
+      21:"ELEM_MODE_5_DESC_SECTOR",22:"ELEM_MODE_5_FLAG_SECTOR",23:"ELEM_MODE_6_NAME_SECTOR",24:"ELEM_MODE_6_DESC_SECTOR",
+      25:"ELEM_MODE_6_FLAG_SECTOR",26:"ELEM_MODE_7_NAME_SECTOR",27:"ELEM_MODE_7_DESC_SECTOR",28:"ELEM_MODE_7_FLAG_SECTOR",
+      29:"ELEM_MODE_8_NAME_SECTOR",30:"ELEM_MODE_8_DESC_SECTOR",31:"ELEM_MODE_8_FLAG_SECTOR",32:"ELEM_MODE_9_NAME_SECTOR",
+      33:"ELEM_MODE_9_DESC_SECTOR",34:"ELEM_MODE_9_FLAG_SECTOR",35:"ELEM_MODE_10_NAME_SECTOR",36:"ELEM_MODE_10_DESC_SECTOR",
+      37:"ELEM_MODE_10_FLAG_SECTOR",38:"ELEM_MODE_11_NAME_SECTOR",39:"ELEM_MODE_11_DESC_SECTOR",40:"ELEM_MODE_11_FLAG_SECTOR",
+      41:"ELEM_MODE_12_NAME_SECTOR",42:"ELEM_MODE_12_DESC_SECTOR",43:"ELEM_MODE_12_FLAG_SECTOR",44:"ELEM_MODE_13_NAME_SECTOR",
+      45:"ELEM_MODE_13_DESC_SECTOR",46:"ELEM_MODE_13_FLAG_SECTOR",47:"ELEM_MODE_14_NAME_SECTOR",48:"ELEM_MODE_14_DESC_SECTOR",
+      49:"ELEM_MODE_14_FLAG_SECTOR",50:"ELEM_MODE_15_NAME_SECTOR",51:"ELEM_MODE_15_DESC_SECTOR",52:"ELEM_MODE_15_FLAG_SECTOR",
+      53:"ELEM_ICON_ROW_0_SECTOR",54:"ELEM_ICON_ROW_1_SECTOR",63:"ELEM_ICON_ROW_10_SECTOR",95:"ELEM_WHATEVER_SECTOR",
+      115:"ELEM_CURRENT_XMANAGER_SECTOR"
+    };
+    
+    const commandsMap = {
+      0:"BLACKOUT",1:"START_CMD",2:"TEST_CMD",3:"SEND_REG_RF_CMD",4:"SEND_STATS_RF_CMD",
+      5:"ERR_DBG_ON",6:"ERR_DBG_OFF",7:"SET_ELEM_DEAF",8:"SET_ELEM_LONG_DEAF",9:"MAGIC_TEST_CMD",
+      10:"MAGIC_TEST_2_CMD",11:"ALTERNATE_MODE_ON",12:"ALTERNATE_MODE_OFF",13:"OTA_AP_ON",14:"OTA_AP_OFF"
+    };
+    
+    function toggleOrigenInput() {
+      document.getElementById("origenCustom").classList.toggle("hidden", document.getElementById("origen").value !== "custom");
+    }
+    
+    function hexToByteArray(str) {
+      return str.trim().split(" ").filter(x => x).map(h => parseInt(h, 16));
+    }
+    
+    function actualizarVistaDatos() {
+      const func = document.getElementById("function").value;
+      // Ocultar todos los paneles especializados
+      ["sectorSelector","idiomaSelector","colorSelector","rgbSelector",
+       "flagSelector","sensorSelector","commandSelector","elemModeSelector",
+       "elemDeafSelector","fileNumSelector","patternNumSelector","dataInput"]
+       .forEach(id => document.getElementById(id).classList.add("hidden"));
+    
+      if(func==="A0") {
+        document.getElementById("sectorSelector").classList.remove("hidden");
+        document.getElementById("idiomaSelector").classList.remove("hidden");
+      }
+      if(func==="C1") document.getElementById("colorSelector").classList.remove("hidden");
+      if(func==="C2") document.getElementById("rgbSelector").classList.remove("hidden");
+      if(func==="CE") document.getElementById("flagSelector").classList.remove("hidden");
+      if(func==="CA") document.getElementById("sensorSelector").classList.remove("hidden");
+      if(func==="CF") document.getElementById("commandSelector").classList.remove("hidden");
+      if(func==="B2") document.getElementById("elemModeSelector").classList.remove("hidden");
+      if(func==="B3") document.getElementById("elemDeafSelector").classList.remove("hidden");
+      if(func==="CC") document.getElementById("fileNumSelector").classList.remove("hidden");
+      if(func==="CD") document.getElementById("patternNumSelector").classList.remove("hidden");
+      // Si la función no es ninguna de las especializadas, mostrar el campo de datos
+      if(!["A0","C1","C2","CE","CA","CF","B2","B3","CC","CD"].includes(func)) {
+        document.getElementById("dataInput").classList.remove("hidden");
+      }
+    
+      // Rellenar opciones de color y sector si aún no se han creado
+      const colorSel = document.getElementById("color");
+      if (colorSel.children.length === 0) {
+        Object.entries(colorMap).forEach(([val, name]) => {
+          let opt = document.createElement("option");
+          opt.value = val;
+          opt.textContent = name;
+          colorSel.appendChild(opt);
+        });
+      }
+    
+      const sectorSel = document.getElementById("sector");
+      sectorSel.innerHTML = "";
+      Object.entries(sectorList).forEach(([k,v]) => {
+        let opt = document.createElement("option");
+        opt.value = k;
+        opt.textContent = `${k} - ${v}`;
+        sectorSel.appendChild(opt);
+      });
+    
+      const cmdSel = document.getElementById("commandSel");
+      if (cmdSel.children.length === 0) {
+        Object.entries(commandsMap).forEach(([val,name])=>{
+          let opt = document.createElement("option");
+          opt.value = val;
+          opt.textContent = name;
+          cmdSel.appendChild(opt);
+        });
+      }
+    
+      document.getElementById("rgbPicker").addEventListener("input", e => {
+        const c = e.target.value;
+        document.getElementById("rVal").value = parseInt(c.substr(1,2),16);
+        document.getElementById("gVal").value = parseInt(c.substr(3,2),16);
+        document.getElementById("bVal").value = parseInt(c.substr(5,2),16);
+        updatePreview();
+      });
+    
+      document.querySelectorAll("#rVal,#gVal,#bVal").forEach(el=>el.addEventListener("input",updatePreview));
+    }
+    
+    function updatePreview() {
+      const r = parseColorValue(document.getElementById("rVal").value) || 0,
+            g = parseColorValue(document.getElementById("gVal").value) || 0,
+            b = parseColorValue(document.getElementById("bVal").value) || 0;
+      const preview = document.getElementById("colorPreview");
+      if(preview) {
+        preview.style.backgroundColor = `rgb(${r},${g},${b})`;
+      }
+    }
+    
+    function generarTrama() {
+      const func = document.getElementById("function").value;
+      const origen = (document.getElementById("origen").value === "custom")
+        ? parseInt(document.getElementById("origenCustom").value,16)
+        : parseInt(document.getElementById("origen").value,16);
+      const targetsStr = document.getElementById("destino").value.trim();
+      const targets = targetsStr ? targetsStr.split(" ").map(d => parseInt(d,16)) : [0xDD];
+      let data = [];
+      // Seleccionar los datos según la función:
+      if(func==="A0") {
+        data = [parseInt(idioma.value), parseInt(sector.value)];
+      } else if(func==="C1") {
+        data = [parseInt(color.value)];
+      } else if(func==="C2") {
+        let r = parseColorValue(document.getElementById("rVal").value) || 0,
+            g = parseColorValue(document.getElementById("gVal").value) || 0,
+            b = parseColorValue(document.getElementById("bVal").value) || 0;
+        data = [r, g, b];
+      } else if(func==="CE") {
+        data = [parseInt(flag.value,16)];
+      } else if(func==="CA") {
+        let min = parseInt(minVal.value) || 0, 
+            max = parseInt(maxVal.value) || 0, 
+            val = parseInt(valVal.value) || 0;
+        data = [min >> 8, min & 0xFF, max >> 8, max & 0xFF, val >> 8, val & 0xFF];
+      } else if(func==="CF") {
+        const cmdVal = parseInt(document.getElementById("commandSel").value);
+        data = [cmdVal];
+      } else if(func==="B2") {
+        // F_SET_ELEM_MODE
+        data = [parseInt(document.getElementById("elemMode").value, 16)];
+      } else if(func==="B3") {
+        // F_SET_ELEM_DEAF
+        data = [parseInt(document.getElementById("elemDeaf").value, 16)];
+      } else if(func==="CC") {
+        // F_SEND_FILE_NUM
+        data = [
+          parseInt(document.getElementById("fileBank").value, 16),
+          parseInt(document.getElementById("fileNum").value, 16)
+        ];
+      } else if(func==="CD") {
+        // F_SEND_PATTERN_NUM
+        data = [parseInt(document.getElementById("patternNum").value, 16)];
+      } else {
+        const raw = document.getElementById("data").value.trim();
+        data = raw ? hexToByteArray(raw) : [];
+      }
+      // Cálculo del frameLength: según la fórmula definida:
+      // frameLength = 0x07 + (número de destinos) + (longitud de la función)
+      // La longitud de la función se deduce del número de bytes en data
+      const frameLen = 7 + targets.length + data.length;
+      const frame = [
+        0xE1,
+        (frameLen >> 8), (frameLen & 0xFF),
+        origen,
+        targets.length,
+        ...targets,
+        parseInt(func,16),
+        (data.length >> 8) & 0xFF, (data.length & 0xFF),
+        ...data
+      ];
+      // El checksum se calcula sumando todos los bytes del frame concatenado con 0xBB
+      function computeChecksum(bytes) {
+         let sum = 0;
+         for(let b of bytes) {
+           sum += b;
+           while(sum > 0xFF) {
+             sum = (sum & 0xFF) + (sum >> 8);
+           }
+         }
+         return sum;
+      }
+      const checksum = computeChecksum(frame.concat(0xBB));
+      const trama = [...frame, checksum, 0xBB];
+      document.getElementById("tramaHex").textContent = trama.map(
+        b => ("0x" + b.toString(16).padStart(2,"0").toUpperCase())
+      ).join(" ");
+      document.getElementById("tramaHex").classList.add("fade-in");
+      setTimeout(() => {
+        document.getElementById("tramaHex").classList.remove("fade-in");
+      }, 300);
+    }
+    
+    function copiarTrama(){
+      navigator.clipboard.writeText(document.getElementById("tramaHex").textContent)
+        .then(() => {
+          const btn = document.getElementById("copyBtn");
+          const originalText = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+          const toast = document.createElement("div");
+          toast.className = "copy-toast";
+          toast.innerHTML = '<i class="fas fa-check-circle"></i> Trama copiada al portapapeles';
+          document.body.appendChild(toast);
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            toast.remove();
+          }, 2000);
+        })
+        .catch(err => {
+          console.error('Error al copiar: ', err);
+        });
+    }
+    
+    function usarTramaGenerada(){
+      document.getElementById("inputTrama").value = document.getElementById("tramaHex").textContent;
+      decodificarTrama();
+    }
+    
+    function decodificarTrama() {
+      const inputValue = document.getElementById("inputTrama").value.trim();
+      if (!inputValue) {
+        document.getElementById("resultado").innerHTML = '<span style="color: #e74c3c;"><i class="fas fa-exclamation-triangle"></i> Por favor ingrese una trama para decodificar</span>';
+        return;
+      }
+      const arr = inputValue.split(" ").map(h => parseInt(h.replace("0x",""), 16));
+      if(arr.includes(NaN)) {
+        document.getElementById("resultado").innerHTML = '<span style="color: #e74c3c;"><i class="fas fa-exclamation-triangle"></i> Formato de trama inválido</span>';
+        return;
+      }
+      // El campo de longitud en la trama es el valor almacenado en los bytes 1 y 2,
+      // y la longitud total esperada es ese valor + 3
+      let expectedFrameLength = (arr[1] << 8) | arr[2];
+      let totalFrameLength = expectedFrameLength + 3;
+      if(arr.length !== totalFrameLength) {
+        document.getElementById("resultado").innerHTML = `<span style="color: #e74c3c;"><i class="fas fa-exclamation-triangle"></i> Trama inválida: Longitud incorrecta (esperada ${totalFrameLength} bytes, recibidos ${arr.length} bytes)</span>`;
+        return;
+      }
+      // Validación de inicio y fin de trama
+      if(arr[0] !== 0xE1) {
+        document.getElementById("resultado").innerHTML = '<span style="color: #e74c3c;"><i class="fas fa-exclamation-triangle"></i> Trama inválida: No comienza con 0xE1</span>';
+        return;
+      }
+      if(arr[arr.length - 1] !== 0xBB) {
+        document.getElementById("resultado").innerHTML = '<span style="color: #e74c3c;"><i class="fas fa-exclamation-triangle"></i> Trama inválida: No termina con 0xBB</span>';
+        return;
+      }
+      // Cálculo del checksum: se suman los bytes desde el índice 0 hasta arr.length-3 y se agrega 0xBB
+      function computeChecksum(bytes) {
+         let sum = 0;
+         for(let b of bytes) {
+           sum += b;
+           while(sum > 0xFF) {
+             sum = (sum & 0xFF) + (sum >> 8);
+           }
+         }
+         return sum;
+      }
+      let dataToSum = arr.slice(0, arr.length - 2);
+      let computedChecksum = computeChecksum(dataToSum.concat(0xBB));
+      let receivedChecksum = arr[arr.length - 2];
+      let checksumValid = (computedChecksum === receivedChecksum);
+      
+      let out = "";
+      if(checksumValid) {
+         out += `<div style="color: var(--success-color); font-weight: bold; margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Trama VÁLIDA</div>`;
+      } else {
+         out += `<div style="color: var(--danger-color); font-weight: bold; margin-bottom: 10px;"><i class="fas fa-exclamation-triangle"></i> Trama INVÁLIDA</div>`;
+      }
+      
+      const origin = arr[3];
+      const numT = arr[4];
+      const targets = arr.slice(5, 5+numT);
+      const func = arr[5+numT];
+      const dataLen = ((arr[6+numT] << 8) | arr[7+numT]);
+      const dataStart = 8+numT;
+      const data = arr.slice(dataStart, dataStart+dataLen);
+      
+      out += `<div class="decoded-item"><span class="icon"><i class="fas fa-broadcast-tower"></i></span> <span class="label">Origen:</span> <span class="value">0x${origin.toString(16).toUpperCase().padStart(2,'0')}</span></div>`;
+      out += `<div class="decoded-item"><span class="icon"><i class="fas fa-laptop-code"></i></span> <span class="label">Destinos:</span> <span class="value">${targets.map(t => "0x"+t.toString(16).toUpperCase().padStart(2,'0')).join(", ")}</span></div>`;
+      out += `<div class="decoded-item"><span class="icon"><i class="fas fa-cogs"></i></span> <span class="label">Función:</span> <span class="value">0x${func.toString(16).toUpperCase().padStart(2,'0')}</span></div>`;
+      
+      if(func === 0xC1) {
+        const colorName = colorMap[data[0]] || "Desconocido";
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-palette"></i></span> <span class="label">Color:</span> <span class="value">${colorName}</span></div>`;
+      }
+      else if(func === 0xC2) {
+        const r = data[0] || 0, g = data[1] || 0, b = data[2] || 0;
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-circle" style="color: red;"></i></span> <span class="label">R:</span> <span class="value">${r}</span></div>`;
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-circle" style="color: green;"></i></span> <span class="label">G:</span> <span class="value">${g}</span></div>`;
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-circle" style="color: blue;"></i></span> <span class="label">B:</span> <span class="value">${b}</span></div>`;
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-square"></i></span> <span class="label">Color:</span> <span class="value"><div style="width:50px;height:20px;background: rgb(${r},${g},${b}); border-radius:3px;"></div></span></div>`;
+      }
+      else if(func === 0xCE) {
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-toggle-${data[0]===1 ? "on" : "off"}"></i></span> <span class="label">Estado:</span> <span class="value">${data[0]===1 ? "ON" : "OFF"}</span></div>`;
+      }
+      else if(func === 0xA0) {
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-language"></i></span> <span class="label">Idioma:</span> <span class="value">${idiomaMap[data[0]] || data[0]}</span></div>`;
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-folder-open"></i></span> <span class="label">Sector:</span> <span class="value">${sectorList[data[1]] || data[1]}</span></div>`;
+      }
+      else if(func === 0xCA) {
+        const min = (data[0]<<8)|data[1], max = (data[2]<<8)|data[3], val = (data[4]<<8)|data[5];
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-temperature-low"></i></span> <span class="label">MIN:</span> <span class="value">${min}</span></div>`;
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-temperature-high"></i></span> <span class="label">MAX:</span> <span class="value">${max}</span></div>`;
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-thermometer-half"></i></span> <span class="label">VAL:</span> <span class="value">${val}</span></div>`;
+      }
+      else if(func === 0xB1) {
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-id-card"></i></span> <span class="label">ID:</span> <span class="value">${data[0]}</span></div>`;
+      }
+      else if(func === 0xB2) {
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-sliders-h"></i></span> <span class="label">Modo:</span> <span class="value">0x${data[0].toString(16).toUpperCase().padStart(2,'0')}</span></div>`;
+      }
+      else if(func === 0xB3) {
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-volume-mute"></i></span> <span class="label">Ensordecer:</span> <span class="value">0x${data[0].toString(16).toUpperCase().padStart(2,'0')}</span></div>`;
+      }
+      else if(func === 0xCC) {
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-file-alt"></i></span> <span class="label">Bank:</span> <span class="value">0x${data[0].toString(16).toUpperCase().padStart(2,'0')}</span></div>`;
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-hashtag"></i></span> <span class="label">File:</span> <span class="value">0x${data[1].toString(16).toUpperCase().padStart(2,'0')}</span></div>`;
+      }
+      else if(func === 0xCD) {
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-th"></i></span> <span class="label">Patrón:</span> <span class="value">0x${data[0].toString(16).toUpperCase().padStart(2,'0')}</span></div>`;
+      }
+      else {
+        out += `<div class="decoded-item"><span class="icon"><i class="fas fa-cubes"></i></span> <span class="label">Data:</span> <span class="value">${data.map(b=>"0x"+b.toString(16).toUpperCase().padStart(2,'0')).join(" ")}</span></div>`;
+      }
+      
+      out += `<div class="decoded-item checksum ${checksumValid ? "valid" : "invalid"}">
+                <span class="icon"><i class="fas fa-${checksumValid ? "check-circle" : "exclamation-triangle"}"></i></span> 
+                <span class="label">Checksum:</span> 
+                <span class="value">Recibido: 0x${receivedChecksum.toString(16).toUpperCase().padStart(2,'0')} / Calculado: 0x${computedChecksum.toString(16).toUpperCase().padStart(2,'0')}</span>
+              </div>`;
+      
+      document.getElementById("resultado").innerHTML = out;
+      document.getElementById("resultado").classList.add("fade-in");
+      setTimeout(() => {
+        document.getElementById("resultado").classList.remove("fade-in");
+      }, 300);
+    }
+    
+    document.getElementById("inputTrama").addEventListener("keyup", function(event) {
+      if (event.key === "Enter") {
+        decodificarTrama();
+      }
+    });
+  </script>
+</body>
+</html>
