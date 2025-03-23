@@ -33,6 +33,23 @@
       --transition-fast: 0.2s ease;
       --transition-normal: 0.3s ease;
     }
+    
+    /* Variables para tema claro */
+    .light-theme {
+      --primary-color: #1a73e8;
+      --primary-light: rgba(26, 115, 232, 0.15);
+      --primary-dark: #0d47a1;
+      --primary-hover: #4285f4;
+      --text-color: #333333;
+      --text-secondary: #666666;
+      --bg-color: #f5f5f5;
+      --card-bg: #ffffff;
+      --card-hover: #f9f9f9;
+      --input-bg: #f0f0f0;
+      --border-color: #dddddd;
+      --border-focus: #4285f4;
+    }
+    
     * {
       box-sizing: border-box;
       margin: 0;
@@ -48,6 +65,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
     }
     .container {
       max-width: 1000px;
@@ -64,6 +82,7 @@
       background: linear-gradient(to right, rgba(46, 126, 255, 0.05), rgba(46, 126, 255, 0.1), rgba(46, 126, 255, 0.05));
       position: relative;
       overflow: hidden;
+      transition: background var(--transition-normal), border-color var(--transition-normal);
     }
     header::before {
       content: '';
@@ -83,6 +102,7 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
+      transition: color var(--transition-normal);
     }
     h1 i {
       font-size: 2rem;
@@ -91,6 +111,7 @@
       font-size: 1.2rem;
       color: var(--text-secondary);
       font-weight: 300;
+      transition: color var(--transition-normal);
     }
     .card {
       background-color: var(--card-bg);
@@ -98,7 +119,7 @@
       box-shadow: var(--shadow-md);
       margin-bottom: 30px;
       overflow: hidden;
-      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal), background-color var(--transition-normal);
       border: 1px solid rgba(255,255,255,0.05);
     }
     .card:hover {
@@ -110,6 +131,7 @@
       padding: 18px 24px;
       border-bottom: 1px solid var(--border-color);
       position: relative;
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
     }
     .card-header::after {
       content: '';
@@ -119,6 +141,7 @@
       bottom: 0;
       width: 4px;
       background-color: var(--primary-color);
+      transition: background-color var(--transition-normal);
     }
     .card-header h2 {
       margin: 0;
@@ -130,12 +153,14 @@
     .card-header h2 i {
       color: var(--primary-color);
       font-size: 1.3rem;
+      transition: color var(--transition-normal);
     }
     .card-body {
       padding: 24px;
     }
     .form-group {
       margin-bottom: 24px;
+      position: relative;
     }
     .form-row {
       display: flex;
@@ -158,6 +183,7 @@
       width: 16px;
       text-align: center;
       color: var(--primary-color);
+      transition: color var(--transition-normal);
     }
     .form-group:focus-within label {
       color: var(--primary-color);
@@ -170,16 +196,22 @@
       border-radius: var(--radius-sm);
       color: var(--text-color);
       font-size: 1rem;
-      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-normal);
     }
     input:hover, select:hover {
       background-color: rgba(42, 42, 42, 0.8);
+    }
+    .light-theme input:hover, .light-theme select:hover {
+      background-color: rgba(240, 240, 240, 0.8);
     }
     input:focus, select:focus {
       outline: none;
       border-color: var(--border-focus);
       box-shadow: 0 0 0 3px rgba(46,126,255,0.25);
       background-color: rgba(42, 42, 42, 0.9);
+    }
+    .light-theme input:focus, .light-theme select:focus {
+      background-color: rgba(240, 240, 240, 0.9);
     }
     .select-container {
       position: relative;
@@ -235,11 +267,24 @@
     .btn.primary {
       background-color: var(--primary-color);
     }
+    .btn.secondary {
+      background-color: #555;
+    }
+    .btn.secondary:hover {
+      background-color: #666;
+    }
+    .light-theme .btn.secondary {
+      background-color: #aaa;
+    }
+    .light-theme .btn.secondary:hover {
+      background-color: #999;
+    }
     .action-buttons {
       margin: 24px 0;
       display: flex;
       justify-content: center;
       gap: 16px;
+      flex-wrap: wrap;
     }
     .output {
       background: var(--input-bg);
@@ -250,11 +295,14 @@
       overflow-x: auto;
       border: 1px solid var(--border-color);
       min-height: 60px;
-      transition: border-color var(--transition-fast);
+      transition: border-color var(--transition-fast), background-color var(--transition-normal);
       position: relative;
     }
     .output:hover {
       border-color: rgba(255,255,255,0.2);
+    }
+    .light-theme .output:hover {
+      border-color: rgba(0,0,0,0.2);
     }
     .trama-output {
       margin-top: 24px;
@@ -270,6 +318,7 @@
     .output-header i {
       color: var(--primary-color);
       margin-right: 8px;
+      transition: color var(--transition-normal);
     }
     .input-with-button {
       display: flex;
@@ -328,6 +377,7 @@
       border-top: 1px solid var(--border-color);
       color: var(--text-secondary);
       background: linear-gradient(to right, rgba(46, 126, 255, 0.05), rgba(46, 126, 255, 0.1), rgba(46, 126, 255, 0.05));
+      transition: background var(--transition-normal), border-color var(--transition-normal), color var(--transition-normal);
     }
     .output-container {
       margin-top: 24px;
@@ -389,8 +439,14 @@
       transition: background-color var(--transition-fast);
       border-radius: var(--radius-sm);
     }
+    .light-theme .decoded-item {
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
     .decoded-item:hover {
       background-color: rgba(255,255,255,0.05);
+    }
+    .light-theme .decoded-item:hover {
+      background-color: rgba(0,0,0,0.05);
     }
     .decoded-item:last-child {
       border-bottom: none;
@@ -401,12 +457,14 @@
       text-align: center;
       color: var(--primary-color);
       font-size: 1.1rem;
+      transition: color var(--transition-normal);
     }
     .decoded-item .label {
       font-weight: bold;
       margin-right: 12px;
       min-width: 120px;
       color: var(--text-color);
+      transition: color var(--transition-normal);
     }
     .decoded-item .value {
       font-family: 'Courier New', monospace;
@@ -414,6 +472,11 @@
       padding: 4px 8px;
       border-radius: var(--radius-sm);
       border: 1px solid rgba(255,255,255,0.1);
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .light-theme .decoded-item .value {
+      background-color: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.1);
     }
     .decoded-item.checksum.valid {
       color: var(--success-color);
@@ -425,6 +488,7 @@
       height: 1px;
       background: linear-gradient(to right, transparent, var(--border-color), transparent);
       margin: 24px 0;
+      transition: background var(--transition-normal);
     }
     .rgb-preview-container {
       display: flex;
@@ -437,7 +501,7 @@
       height: 40px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border-color);
-      transition: transform var(--transition-fast);
+      transition: transform var(--transition-fast), border-color var(--transition-normal);
     }
     .rgb-preview:hover {
       transform: scale(1.05);
@@ -448,6 +512,11 @@
       padding: 4px 8px;
       border-radius: var(--radius-sm);
       border: 1px solid rgba(255,255,255,0.1);
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .light-theme .rgb-value {
+      background-color: rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.1);
     }
     .tooltip {
       position: relative;
@@ -471,6 +540,9 @@
       box-shadow: var(--shadow-md);
       font-size: 0.9rem;
     }
+    .light-theme .tooltip .tooltiptext {
+      background-color: #555;
+    }
     .tooltip:hover .tooltiptext {
       visibility: visible;
       opacity: 1;
@@ -483,9 +555,285 @@
       70% { box-shadow: 0 0 0 10px rgba(46, 126, 255, 0); }
       100% { box-shadow: 0 0 0 0 rgba(46, 126, 255, 0); }
     }
+    
+    /* Nuevos estilos */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background-color: var(--card-bg);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .theme-toggle i {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      transition: transform var(--transition-normal), color var(--transition-normal);
+    }
+    .theme-toggle:hover i {
+      transform: rotate(30deg);
+    }
+    
+    .error-message {
+      color: var(--danger-color);
+      font-size: 0.85rem;
+      margin-top: 5px;
+      display: none;
+    }
+    
+    .history-panel {
+      position: fixed;
+      right: -300px;
+      top: 0;
+      width: 300px;
+      height: 100%;
+      background-color: var(--card-bg);
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      transition: right var(--transition-normal);
+      overflow-y: auto;
+      border-left: 1px solid var(--border-color);
+      padding: 20px;
+      transition: right var(--transition-normal), background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .history-panel.open {
+      right: 0;
+    }
+    .history-toggle {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 100;
+      background-color: var(--card-bg);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .history-toggle i {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      transition: color var(--transition-normal);
+    }
+    .history-item {
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: background-color var(--transition-fast);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+    }
+    .history-item:hover {
+      background-color: var(--primary-light);
+    }
+    .history-item-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--primary-color);
+    }
+    .history-item-content {
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .history-header h3 {
+      margin: 0;
+      color: var(--primary-color);
+    }
+    .history-close {
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: color var(--transition-fast);
+    }
+    .history-close:hover {
+      color: var(--danger-color);
+    }
+    .clear-history {
+      background-color: var(--danger-color);
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin-top: 10px;
+      transition: background-color var(--transition-fast);
+    }
+    .clear-history:hover {
+      background-color: #c0392b;
+    }
+    
+    .help-icon {
+      margin-left: 8px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color var(--transition-fast);
+    }
+    .help-icon:hover {
+      color: var(--primary-color);
+    }
+    
+    .frame-structure {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: var(--card-bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .frame-structure-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color var(--transition-normal);
+    }
+    .frame-byte {
+      display: inline-block;
+      padding: 5px 8px;
+      margin: 3px;
+      background-color: var(--input-bg);
+      border-radius: var(--radius-sm);
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      border: 1px solid var(--border-color);
+      position: relative;
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .frame-byte:hover .byte-tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+    .byte-tooltip {
+      visibility: hidden;
+      width: 150px;
+      background-color: #333;
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -75px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+    .light-theme .byte-tooltip {
+      background-color: #555;
+    }
+    .byte-tooltip::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #333 transparent transparent transparent;
+    }
+    .light-theme .byte-tooltip::after {
+      border-color: #555 transparent transparent transparent; transparent;
+    }
+    
+    .validation-error {
+      border-color: var(--danger-color) !important;
+    }
+    
+    .save-config-panel {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: var(--card-bg);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      transition: background-color var(--transition-normal), border-color var(--transition-normal);
+    }
+    .saved-configs {
+      margin-top: 10px;
+    }
+    .config-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      border-bottom: 1px solid var(--border-color);
+      transition: background-color var(--transition-fast);
+    }
+    .config-item:hover {
+      background-color: var(--primary-light);
+    }
+    .config-name {
+      font-weight: bold;
+    }
+    .config-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .config-action {
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: color var(--transition-fast);
+    }
+    .config-action:hover {
+      color: var(--primary-color);
+    }
+    .config-action.delete:hover {
+      color: var(--danger-color);
+    }
   </style>
 </head>
-<body onload="actualizarVistaDatos()">
+<body onload="inicializarApp()">
+  <!-- Botón de cambio de tema -->
+  <div class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">
+    <i class="fas fa-moon"></i>
+  </div>
+  
+  <!-- Botón de historial -->
+  <div class="history-toggle" onclick="toggleHistory()" title="Historial de tramas">
+    <i class="fas fa-history"></i>
+  </div>
+  
+  <!-- Panel de historial -->
+  <div class="history-panel" id="historyPanel">
+    <div class="history-header">
+      <h3>Historial de Tramas</h3>
+      <div class="history-close" onclick="toggleHistory()"><i class="fas fa-times"></i></div>
+    </div>
+    <div id="historyItems">
+      <!-- Los items del historial se generarán dinámicamente -->
+    </div>
+    <button class="clear-history" onclick="clearHistory()">Limpiar historial</button>
+  </div>
+
   <div class="container">
     <header>
       <h1><i class="fas fa-microchip"></i> DOIT Tramas WebApp</h1>
@@ -500,7 +848,10 @@
       <div class="card-body">
         <!-- Origen y destino -->
         <div class="form-group">
-          <label for="origen"><i class="fas fa-broadcast-tower"></i> Origen:</label>
+          <label for="origen">
+            <i class="fas fa-broadcast-tower"></i> Origen:
+            <i class="fas fa-question-circle help-icon" title="Dispositivo que envía la trama"></i>
+          </label>
           <div class="select-container">
             <select id="origen" onchange="toggleOrigenInput()">
               <option value="DB">BOTONERA (0xDB)</option>
@@ -511,15 +862,23 @@
             </select>
           </div>
           <input id="origenCustom" placeholder="Ej: A5" class="hidden">
+          <div id="origenError" class="error-message">Ingrese un valor hexadecimal válido (00-FF)</div>
         </div>
         <div class="form-group">
-          <label for="destino"><i class="fas fa-laptop-code"></i> Destino(s):</label>
+          <label for="destino">
+            <i class="fas fa-laptop-code"></i> Destino(s):
+            <i class="fas fa-question-circle help-icon" title="Dispositivos que recibirán la trama (separados por espacios)"></i>
+          </label>
           <input id="destino" placeholder="Ej: FF o FF DB DC (separados por espacios)">
+          <div id="destinoError" class="error-message">Ingrese valores hexadecimales válidos (00-FF) separados por espacios</div>
         </div>
         
         <!-- Función -->
         <div class="form-group">
-          <label for="function"><i class="fas fa-cogs"></i> Función:</label>
+          <label for="function">
+            <i class="fas fa-cogs"></i> Función:
+            <i class="fas fa-question-circle help-icon" title="Tipo de operación que realizará la trama"></i>
+          </label>
           <div class="select-container">
             <select id="function" onchange="actualizarVistaDatos()">
               <option value="C1">F_SEND_COLOR</option>
@@ -572,15 +931,18 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="rVal"><i class="fas fa-circle" style="color: red;"></i> R:</label>
-              <input id="rVal" placeholder="0-255 o 0xFF" type="text">
+              <input id="rVal" placeholder="0-255 o 0xFF" type="text" oninput="validateHexOrDecimal(this, 0, 255)">
+              <div id="rValError" class="error-message">Valor debe estar entre 0-255</div>
             </div>
             <div class="form-group col">
               <label for="gVal"><i class="fas fa-circle" style="color: green;"></i> G:</label>
-              <input id="gVal" placeholder="0-255 o 0xFF" type="text">
+              <input id="gVal" placeholder="0-255 o 0xFF" type="text" oninput="validateHexOrDecimal(this, 0, 255)">
+              <div id="gValError" class="error-message">Valor debe estar entre 0-255</div>
             </div>
             <div class="form-group col">
               <label for="bVal"><i class="fas fa-circle" style="color: blue;"></i> B:</label>
-              <input id="bVal" placeholder="0-255 o 0xFF" type="text">
+              <input id="bVal" placeholder="0-255 o 0xFF" type="text" oninput="validateHexOrDecimal(this, 0, 255)">
+              <div id="bValError" class="error-message">Valor debe estar entre 0-255</div>
             </div>
           </div>
           <div class="form-row">
@@ -591,7 +953,7 @@
             <div class="form-group col">
               <div class="rgb-preview-container">
                 <div id="colorPreview" class="rgb-preview"></div>
-                <span class="rgb-value" id="rgbValue">RGB(0, 0, 0)</span>
+                <span id="rgbValue">RGB(0, 0, 0)</span>
               </div>
             </div>
           </div>
@@ -609,16 +971,19 @@
           <div class="form-row">
             <div class="form-group col">
               <label for="minVal"><i class="fas fa-temperature-low"></i> Valor mínimo:</label>
-              <input id="minVal" type="number">
+              <input id="minVal" type="number" oninput="validateNumber(this)">
+              <div id="minValError" class="error-message">Ingrese un número válido</div>
             </div>
             <div class="form-group col">
               <label for="maxVal"><i class="fas fa-temperature-high"></i> Valor máximo:</label>
-              <input id="maxVal" type="number">
+              <input id="maxVal" type="number" oninput="validateNumber(this)">
+              <div id="maxValError" class="error-message">Ingrese un número válido</div>
             </div>
           </div>
           <div class="form-group">
             <label for="valVal"><i class="fas fa-thermometer-half"></i> Valor actual:</label>
-            <input id="valVal" type="number">
+            <input id="valVal" type="number" oninput="validateNumber(this)">
+            <div id="valValError" class="error-message">Ingrese un número válido</div>
           </div>
         </div>
         <div id="commandSelector" class="form-group hidden">
@@ -628,48 +993,104 @@
           </div>
         </div>
         <!-- Nuevos paneles para funciones adicionales -->
+        <div id="elemIdSelector" class="form-group hidden">
+          <label for="elemId"><i class="fas fa-id-card"></i> ID Elemento (0x00 a 0xFF):</label>
+          <input id="elemId" placeholder="Ej: 0x00" type="text" oninput="validateHexOrDecimal(this, 0, 255)">
+          <div id="elemIdError" class="error-message">Valor debe estar entre 0x00 y 0xFF</div>
+        </div>
         <div id="elemModeSelector" class="form-group hidden">
           <label for="elemMode"><i class="fas fa-sliders-h"></i> Modo Elemento (0x00 a 0x0F):</label>
-          <input id="elemMode" placeholder="Ej: 0x00" type="text">
+          <input id="elemMode" placeholder="Ej: 0x00" type="text" oninput="validateHexOrDecimal(this, 0, 15)">
+          <div id="elemModeError" class="error-message">Valor debe estar entre 0x00 y 0x0F</div>
         </div>
         <div id="elemDeafSelector" class="form-group hidden">
           <label for="elemDeaf"><i class="fas fa-volume-mute"></i> Tiempo Ensordecer (0x00 a 0xFF):</label>
-          <input id="elemDeaf" placeholder="Ej: 0x00" type="text">
+          <input id="elemDeaf" placeholder="Ej: 0x00" type="text" oninput="validateHexOrDecimal(this, 0, 255)">
+          <div id="elemDeafError" class="error-message">Valor debe estar entre 0x00 y 0xFF</div>
         </div>
         <div id="fileNumSelector" class="form-group hidden">
           <label><i class="fas fa-file-alt"></i> Número de Archivo:</label>
           <div class="form-row">
             <div class="form-group col">
               <label for="fileBank"><i class="fas fa-university"></i> Bank:</label>
-              <input id="fileBank" placeholder="Ej: 0x00" type="text">
+              <input id="fileBank" placeholder="Ej: 0x00" type="text" oninput="validateHexOrDecimal(this, 0, 255)">
+              <div id="fileBankError" class="error-message">Valor debe estar entre 0x00 y 0xFF</div>
             </div>
             <div class="form-group col">
               <label for="fileNum"><i class="fas fa-hashtag"></i> File:</label>
-              <input id="fileNum" placeholder="Ej: 0x00" type="text">
+              <input id="fileNum" placeholder="Ej: 0x00" type="text" oninput="validateHexOrDecimal(this, 0, 255)">
+              <div id="fileNumError" class="error-message">Valor debe estar entre 0x00 y 0xFF</div>
             </div>
           </div>
         </div>
         <div id="patternNumSelector" class="form-group hidden">
           <label for="patternNum"><i class="fas fa-th"></i> Número de Patrón (0x00 a 0xFF):</label>
-          <input id="patternNum" placeholder="Ej: 0x00" type="text">
+          <input id="patternNum" placeholder="Ej: 0x00" type="text" oninput="validateHexOrDecimal(this, 0, 255)">
+          <div id="patternNumError" class="error-message">Valor debe estar entre 0x00 y 0xFF</div>
         </div>
         <!-- Si la función seleccionada no es de las especializadas, se muestra el campo de Datos -->
         <div id="dataInput" class="form-group hidden">
           <label for="data"><i class="fas fa-cubes"></i> Datos (hex separados por espacio):</label>
           <input id="data" placeholder="Ej: 03 o 01 FF">
+          <div id="dataError" class="error-message">Ingrese valores hexadecimales válidos separados por espacios</div>
+        </div>
+        
+        <!-- Visualización de la estructura de la trama -->
+        <div class="frame-structure">
+          <div class="frame-structure-title">
+            <i class="fas fa-sitemap"></i> Estructura de la Trama
+          </div>
+          <div id="frameStructure">
+            <div class="frame-byte">0xE1<div class="byte-tooltip">Inicio de trama</div></div>
+            <div class="frame-byte">0x00<div class="byte-tooltip">Longitud (MSB)</div></div>
+            <div class="frame-byte">0x00<div class="byte-tooltip">Longitud (LSB)</div></div>
+            <div class="frame-byte">0xDB<div class="byte-tooltip">Origen</div></div>
+            <div class="frame-byte">0x01<div class="byte-tooltip">Número de destinos</div></div>
+            <div class="frame-byte">0xDD<div class="byte-tooltip">Destino</div></div>
+            <div class="frame-byte">0xC1<div class="byte-tooltip">Función</div></div>
+            <div class="frame-byte">0x00<div class="byte-tooltip">Longitud datos (MSB)</div></div>
+            <div class="frame-byte">0x01<div class="byte-tooltip">Longitud datos (LSB)</div></div>
+            <div class="frame-byte">0x00<div class="byte-tooltip">Datos</div></div>
+            <div class="frame-byte">0x24<div class="byte-tooltip">Checksum</div></div>
+            <div class="frame-byte">0xBB<div class="byte-tooltip">Fin de trama</div></div>
+          </div>
+        </div>
+        
+        <!-- Guardar configuración -->
+        <div class="save-config-panel">
+          <div class="form-group">
+            <label for="configName"><i class="fas fa-save"></i> Guardar configuración actual:</label>
+            <div class="input-with-button">
+              <input id="configName" placeholder="Nombre de la configuración">
+              <button class="btn small" onclick="saveCurrentConfig()">
+                <i class="fas fa-save"></i> Guardar
+              </button>
+            </div>
+          </div>
+          <div class="saved-configs" id="savedConfigs">
+            <!-- Las configuraciones guardadas se mostrarán aquí -->
+          </div>
         </div>
         
         <div class="action-buttons">
           <button class="btn primary pulse" onclick="generarTrama()">
             <i class="fas fa-hammer"></i> Generar Trama
           </button>
+          <button class="btn secondary" onclick="limpiarFormulario()">
+            <i class="fas fa-eraser"></i> Limpiar
+          </button>
         </div>
         <div class="trama-output">
           <div class="output-header">
             <span><i class="fas fa-code"></i> Trama Generada:</span>
-            <button class="btn small" onclick="copiarTrama()" id="copyBtn">
-              <i class="fas fa-copy"></i> Copiar
-            </button>
+            <div>
+              <button class="btn small" onclick="copiarTrama()" id="copyBtn">
+                <i class="fas fa-copy"></i> Copiar
+              </button>
+              <button class="btn small" onclick="guardarEnHistorial()" id="saveHistoryBtn">
+                <i class="fas fa-bookmark"></i> Guardar
+              </button>
+            </div>
           </div>
           <div class="output" id="tramaHex"></div>
         </div>
@@ -690,6 +1111,7 @@
               <i class="fas fa-download"></i> Usar trama generada
             </button>
           </div>
+          <div id="inputTramaError" class="error-message">Formato de trama inválido</div>
         </div>
         <div class="action-buttons">
           <button class="btn primary" onclick="decodificarTrama()">
@@ -762,19 +1184,439 @@
       10:"MAGIC_TEST_2_CMD",11:"ALTERNATE_MODE_ON",12:"ALTERNATE_MODE_OFF",13:"OTA_AP_ON",14:"OTA_AP_OFF"
     };
     
+    // Inicialización de la aplicación
+    function inicializarApp() {
+      actualizarVistaDatos();
+      cargarHistorial();
+      cargarConfiguraciones();
+      actualizarEstructuraTrama();
+      
+      // Verificar si hay un tema guardado
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        document.querySelector('.theme-toggle i').classList.remove('fa-moon');
+        document.querySelector('.theme-toggle i').classList.add('fa-sun');
+      }
+    }
+    
+    // Cambio de tema
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.querySelector('.theme-toggle i');
+      
+      body.classList.toggle('light-theme');
+      
+      if (body.classList.contains('light-theme')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    
+    // Historial
+    function toggleHistory() {
+      document.getElementById('historyPanel').classList.toggle('open');
+    }
+    
+    function cargarHistorial() {
+      const historial = JSON.parse(localStorage.getItem('tramaHistory') || '[]');
+      const container = document.getElementById('historyItems');
+      container.innerHTML = '';
+      
+      if (historial.length === 0) {
+        container.innerHTML = '<p>No hay tramas guardadas en el historial</p>';
+        return;
+      }
+      
+      historial.forEach((item, index) => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item';
+        historyItem.innerHTML = `
+          <div class="history-item-title">${item.title || `Trama ${index + 1}`}</div>
+          <div class="history-item-content">${item.trama}</div>
+        `;
+        historyItem.addEventListener('click', () => {
+          document.getElementById('inputTrama').value = item.trama;
+          decodificarTrama();
+          toggleHistory();
+        });
+        container.appendChild(historyItem);
+      });
+    }
+    
+    function guardarEnHistorial() {
+      const trama = document.getElementById('tramaHex').textContent;
+      if (!trama) return;
+      
+      const title = prompt('Ingrese un nombre para esta trama:', 'Trama ' + (new Date()).toLocaleString());
+      if (title === null) return; // El usuario canceló
+      
+      const historial = JSON.parse(localStorage.getItem('tramaHistory') || '[]');
+      historial.unshift({ title, trama });
+      
+      // Limitar a 20 entradas
+      if (historial.length > 20) {
+        historial.pop();
+      }
+      
+      localStorage.setItem('tramaHistory', JSON.stringify(historial));
+      cargarHistorial();
+      
+      // Mostrar toast
+      const toast = document.createElement("div");
+      toast.className = "copy-toast";
+      toast.innerHTML = '<i class="fas fa-check-circle"></i> Trama guardada en el historial';
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 2000);
+    }
+    
+    function clearHistory() {
+      if (confirm('¿Está seguro de que desea borrar todo el historial?')) {
+        localStorage.removeItem('tramaHistory');
+        cargarHistorial();
+      }
+    }
+    
+    // Configuraciones guardadas
+    function saveCurrentConfig() {
+      const configName = document.getElementById('configName').value.trim();
+      if (!configName) {
+        alert('Por favor ingrese un nombre para la configuración');
+        return;
+      }
+      
+      // Recopilar todos los valores del formulario
+      const config = {
+        origen: document.getElementById('origen').value,
+        origenCustom: document.getElementById('origenCustom').value,
+        destino: document.getElementById('destino').value,
+        function: document.getElementById('function').value,
+        // Valores específicos según la función
+        color: document.getElementById('color').value,
+        rVal: document.getElementById('rVal').value,
+        gVal: document.getElementById('gVal').value,
+        bVal: document.getElementById('bVal').value,
+        flag: document.getElementById('flag').value,
+        minVal: document.getElementById('minVal').value,
+        maxVal: document.getElementById('maxVal').value,
+        valVal: document.getElementById('valVal').value,
+        sector: document.getElementById('sector').value,
+        idioma: document.getElementById('idioma').value,
+        commandSel: document.getElementById('commandSel').value,
+        elemId: document.getElementById('elemId').value,
+        elemMode: document.getElementById('elemMode').value,
+        elemDeaf: document.getElementById('elemDeaf').value,
+        fileBank: document.getElementById('fileBank').value,
+        fileNum: document.getElementById('fileNum').value,
+        patternNum: document.getElementById('patternNum').value,
+        data: document.getElementById('data').value
+      };
+      
+      // Guardar en localStorage
+      let configs = JSON.parse(localStorage.getItem('savedConfigs') || '{}');
+      configs[configName] = config;
+      localStorage.setItem('savedConfigs', JSON.stringify(configs));
+      
+      // Actualizar la lista
+      cargarConfiguraciones();
+      
+      // Limpiar el campo de nombre
+      document.getElementById('configName').value = '';
+      
+      // Mostrar toast
+      const toast = document.createElement("div");
+      toast.className = "copy-toast";
+      toast.innerHTML = '<i class="fas fa-check-circle"></i> Configuración guardada';
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 2000);
+    }
+    
+    function cargarConfiguraciones() {
+      const configs = JSON.parse(localStorage.getItem('savedConfigs') || '{}');
+      const container = document.getElementById('savedConfigs');
+      container.innerHTML = '';
+      
+      if (Object.keys(configs).length === 0) {
+        container.innerHTML = '<p>No hay configuraciones guardadas</p>';
+        return;
+      }
+      
+      for (const [name, config] of Object.entries(configs)) {
+        const configItem = document.createElement('div');
+        configItem.className = 'config-item';
+        configItem.innerHTML = `
+          <div class="config-name">${name}</div>
+          <div class="config-actions">
+            <span class="config-action load" title="Cargar configuración" onclick="loadConfig('${name}')"><i class="fas fa-upload"></i></span>
+            <span class="config-action delete" title="Eliminar configuración" onclick="deleteConfig('${name}')"><i class="fas fa-trash"></i></span>
+          </div>
+        `;
+        container.appendChild(configItem);
+      }
+    }
+    
+    function loadConfig(name) {
+      const configs = JSON.parse(localStorage.getItem('savedConfigs') || '{}');
+      const config = configs[name];
+      if (!config) return;
+      
+      // Cargar todos los valores al formulario
+      document.getElementById('origen').value = config.origen;
+      document.getElementById('origenCustom').value = config.origenCustom;
+      toggleOrigenInput(); // Actualizar visibilidad del campo personalizado
+      document.getElementById('destino').value = config.destino;
+      document.getElementById('function').value = config.function;
+      
+      // Actualizar la vista según la función
+      actualizarVistaDatos();
+      
+      // Cargar valores específicos según la función
+      document.getElementById('color').value = config.color;
+      document.getElementById('rVal').value = config.rVal;
+      document.getElementById('gVal').value = config.gVal;
+      document.getElementById('bVal').value = config.bVal;
+      document.getElementById('flag').value = config.flag;
+      document.getElementById('minVal').value = config.minVal;
+      document.getElementById('maxVal').value = config.maxVal;
+      document.getElementById('valVal').value = config.valVal;
+      document.getElementById('sector').value = config.sector;
+      document.getElementById('idioma').value = config.idioma;
+      document.getElementById('commandSel').value = config.commandSel;
+      document.getElementById('elemId').value = config.elemId;
+      document.getElementById('elemMode').value = config.elemMode;
+      document.getElementById('elemDeaf').value = config.elemDeaf;
+      document.getElementById('fileBank').value = config.fileBank;
+      document.getElementById('fileNum').value = config.fileNum;
+      document.getElementById('patternNum').value = config.patternNum;
+      document.getElementById('data').value = config.data;
+      
+      // Actualizar la vista del color si es necesario
+      updatePreview();
+      
+      // Mostrar toast
+      const toast = document.createElement("div");
+      toast.className = "copy-toast";
+      toast.innerHTML = '<i class="fas fa-check-circle"></i> Configuración cargada';
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 2000);
+    }
+    
+    function deleteConfig(name) {
+      if (confirm(`¿Está seguro de que desea eliminar la configuración "${name}"?`)) {
+        let configs = JSON.parse(localStorage.getItem('savedConfigs') || '{}');
+        delete configs[name];
+        localStorage.setItem('savedConfigs', JSON.stringify(configs));
+        cargarConfiguraciones();
+      }
+    }
+    
+    // Validación de campos
+    function validateHexOrDecimal(input, min, max) {
+      const value = parseColorValue(input.value);
+      const errorId = input.id + 'Error';
+      const errorElement = document.getElementById(errorId);
+      
+      if (isNaN(value) || value < min || value > max) {
+        input.classList.add('validation-error');
+        errorElement.style.display = 'block';
+        errorElement.textContent = `Valor debe estar entre ${min} y ${max}`;
+        return false;
+      } else {
+        input.classList.remove('validation-error');
+        errorElement.style.display = 'none';
+        return true;
+      }
+    }
+    
+    function validateNumber(input) {
+      const value = parseInt(input.value);
+      const errorId = input.id + 'Error';
+      const errorElement = document.getElementById(errorId);
+      
+      if (isNaN(value)) {
+        input.classList.add('validation-error');
+        errorElement.style.display = 'block';
+        return false;
+      } else {
+        input.classList.remove('validation-error');
+        errorElement.style.display = 'none';
+        return true;
+      }
+    }
+    
+    function validateHexInput(input) {
+      const value = input.value.trim();
+      const hexPattern = /^(0x)?[0-9A-Fa-f]+$/;
+      const errorId = input.id + 'Error';
+      const errorElement = document.getElementById(errorId);
+      
+      if (!hexPattern.test(value)) {
+        input.classList.add('validation-error');
+        errorElement.style.display = 'block';
+        return false;
+      } else {
+        input.classList.remove('validation-error');
+        errorElement.style.display = 'none';
+        return true;
+      }
+    }
+    
+    function validateDestinos() {
+      const destinos = document.getElementById('destino').value.trim();
+      const errorElement = document.getElementById('destinoError');
+      
+      if (!destinos) {
+        document.getElementById('destino').classList.remove('validation-error');
+        errorElement.style.display = 'none';
+        return true; // Vacío es válido, se usará el valor por defecto
+      }
+      
+      const hexPattern = /^(0x)?[0-9A-Fa-f]+$/;
+      const destinosArray = destinos.split(' ');
+      
+      for (const destino of destinosArray) {
+        if (!hexPattern.test(destino)) {
+          document.getElementById('destino').classList.add('validation-error');
+          errorElement.style.display = 'block';
+          return false;
+        }
+      }
+      
+      document.getElementById('destino').classList.remove('validation-error');
+      errorElement.style.display = 'none';
+      return true;
+    }
+    
+    // Actualizar la estructura visual de la trama
+    function actualizarEstructuraTrama() {
+      const func = document.getElementById("function").value;
+      const origen = (document.getElementById("origen").value === "custom")
+        ? document.getElementById("origenCustom").value || "DB"
+        : document.getElementById("origen").value;
+      const destinos = document.getElementById("destino").value.trim() || "DD";
+      const destinosArray = destinos.split(" ");
+      
+      // Construir la estructura básica
+      let estructura = [
+        { value: "E1", tooltip: "Inicio de trama" },
+        { value: "00", tooltip: "Longitud (MSB)" },
+        { value: "00", tooltip: "Longitud (LSB)" },
+        { value: origen, tooltip: "Origen" },
+        { value: destinosArray.length.toString(16).padStart(2, '0').toUpperCase(), tooltip: "Número de destinos" }
+      ];
+      
+      // Agregar destinos
+      destinosArray.forEach(destino => {
+        estructura.push({ value: destino.replace(/^0x/i, ''), tooltip: "Destino" });
+      });
+      
+      // Agregar función
+      estructura.push({ value: func, tooltip: "Función" });
+      
+      // Agregar longitud de datos
+      let datosLength = 0;
+      let datos = [];
+      
+      // Determinar datos según la función
+      if (func === "C1") {
+        datosLength = 1;
+        datos = [{ value: document.getElementById("color").value || "00", tooltip: "Color" }];
+      } else if (func === "C2") {
+        datosLength = 3;
+        const r = parseColorValue(document.getElementById("rVal").value) || 0;
+        const g = parseColorValue(document.getElementById("gVal").value) || 0;
+        const b = parseColorValue(document.getElementById("bVal").value) || 0;
+        datos = [
+          { value: r.toString(16).padStart(2, '0').toUpperCase(), tooltip: "R" },
+          { value: g.toString(16).padStart(2, '0').toUpperCase(), tooltip: "G" },
+          { value: b.toString(16).padStart(2, '0').toUpperCase(), tooltip: "B" }
+        ];
+      } else if (func === "CE") {
+        datosLength = 1;
+        datos = [{ value: document.getElementById("flag").value || "00", tooltip: "Estado" }];
+      } else if (func === "A0") {
+        datosLength = 2;
+        datos = [
+          { value: document.getElementById("idioma").value || "01", tooltip: "Idioma" },
+          { value: document.getElementById("sector").value || "00", tooltip: "Sector" }
+        ];
+      } else if (func === "B1") {
+        datosLength = 1;
+        datos = [{ value: document.getElementById("elemId").value || "00", tooltip: "ID Elemento" }];
+      } else if (func === "B2") {
+        datosLength = 1;
+        datos = [{ value: document.getElementById("elemMode").value || "00", tooltip: "Modo Elemento" }];
+      } else if (func === "B3") {
+        datosLength = 1;
+        datos = [{ value: document.getElementById("elemDeaf").value || "00", tooltip: "Tiempo Ensordecer" }];
+      } else if (func === "CC") {
+        datosLength = 2;
+        datos = [
+          { value: document.getElementById("fileBank").value || "00", tooltip: "Bank" },
+          { value: document.getElementById("fileNum").value || "00", tooltip: "File" }
+        ];
+      } else if (func === "CD") {
+        datosLength = 1;
+        datos = [{ value: document.getElementById("patternNum").value || "00", tooltip: "Patrón" }];
+      } else {
+        const rawData = document.getElementById("data").value.trim();
+        if (rawData) {
+          const dataArray = rawData.split(" ").map(d => d.replace(/^0x/i, ''));
+          datosLength = dataArray.length;
+          datos = dataArray.map(d => ({ value: d, tooltip: "Datos" }));
+        } else {
+          datosLength = 0;
+          datos = [];
+        }
+      }
+      
+      // Agregar longitud de datos
+      estructura.push({ value: "00", tooltip: "Longitud datos (MSB)" });
+      estructura.push({ value: datosLength.toString(16).padStart(2, '0').toUpperCase(), tooltip: "Longitud datos (LSB)" });
+      
+      // Agregar datos
+      estructura = estructura.concat(datos);
+      
+      // Agregar checksum y fin de trama
+      estructura.push({ value: "XX", tooltip: "Checksum" });
+      estructura.push({ value: "BB", tooltip: "Fin de trama" });
+      
+      // Actualizar el DOM
+      const container = document.getElementById('frameStructure');
+      container.innerHTML = '';
+      
+      estructura.forEach(byte => {
+        const byteElement = document.createElement('div');
+        byteElement.className = 'frame-byte';
+        byteElement.innerHTML = `0x${byte.value}<div class="byte-tooltip">${byte.tooltip}</div>`;
+        container.appendChild(byteElement);
+      });
+    }
+    
     function toggleOrigenInput() {
       document.getElementById("origenCustom").classList.toggle("hidden", document.getElementById("origen").value !== "custom");
     }
     
     function hexToByteArray(str) {
-      return str.trim().split(" ").filter(x => x).map(h => parseInt(h, 16));
+      return str.trim().split(" ").filter(x => x).map(h => parseInt(h.replace(/^0x/i, ""), 16));
     }
     
     function actualizarVistaDatos() {
       const func = document.getElementById("function").value;
       // Ocultar todos los paneles especializados
       ["sectorSelector","idiomaSelector","colorSelector","rgbSelector",
-       "flagSelector","sensorSelector","commandSelector","elemModeSelector",
+       "flagSelector","sensorSelector","commandSelector","elemIdSelector","elemModeSelector",
        "elemDeafSelector","fileNumSelector","patternNumSelector","dataInput"]
        .forEach(id => document.getElementById(id).classList.add("hidden"));
     
@@ -787,12 +1629,13 @@
       if(func==="CE") document.getElementById("flagSelector").classList.remove("hidden");
       if(func==="CA") document.getElementById("sensorSelector").classList.remove("hidden");
       if(func==="CF") document.getElementById("commandSelector").classList.remove("hidden");
+      if(func==="B1") document.getElementById("elemIdSelector").classList.remove("hidden");
       if(func==="B2") document.getElementById("elemModeSelector").classList.remove("hidden");
       if(func==="B3") document.getElementById("elemDeafSelector").classList.remove("hidden");
       if(func==="CC") document.getElementById("fileNumSelector").classList.remove("hidden");
       if(func==="CD") document.getElementById("patternNumSelector").classList.remove("hidden");
       // Si la función no es ninguna de las especializadas, mostrar el campo de datos
-      if(!["A0","C1","C2","CE","CA","CF","B2","B3","CC","CD"].includes(func)) {
+      if(!["A0","C1","C2","CE","CA","CF","B1","B2","B3","CC","CD"].includes(func)) {
         document.getElementById("dataInput").classList.remove("hidden");
       }
     
@@ -835,6 +1678,9 @@
       });
     
       document.querySelectorAll("#rVal,#gVal,#bVal").forEach(el=>el.addEventListener("input",updatePreview));
+      
+      // Actualizar la estructura visual de la trama
+      actualizarEstructuraTrama();
     }
     
     function updatePreview() {
@@ -846,15 +1692,100 @@
         preview.style.backgroundColor = `rgb(${r},${g},${b})`;
         document.getElementById("rgbValue").textContent = `RGB(${r}, ${g}, ${b})`;
       }
+      
+      // Actualizar la estructura visual de la trama
+      actualizarEstructuraTrama();
+    }
+    
+    function limpiarFormulario() {
+      // Restablecer valores por defecto
+      document.getElementById("origen").value = "DB";
+      document.getElementById("origenCustom").value = "";
+      document.getElementById("destino").value = "";
+      document.getElementById("function").value = "C1";
+      document.getElementById("color").value = "0";
+      document.getElementById("rVal").value = "";
+      document.getElementById("gVal").value = "";
+      document.getElementById("bVal").value = "";
+      document.getElementById("flag").value = "01";
+      document.getElementById("minVal").value = "";
+      document.getElementById("maxVal").value = "";
+      document.getElementById("valVal").value = "";
+      document.getElementById("sector").value = "0";
+      document.getElementById("idioma").value = "1";
+      document.getElementById("commandSel").value = "0";
+      document.getElementById("elemId").value = "";
+      document.getElementById("elemMode").value = "";
+      document.getElementById("elemDeaf").value = "";
+      document.getElementById("fileBank").value = "";
+      document.getElementById("fileNum").value = "";
+      document.getElementById("patternNum").value = "";
+      document.getElementById("data").value = "";
+      document.getElementById("tramaHex").textContent = "";
+      
+      // Ocultar mensajes de error
+      document.querySelectorAll(".error-message").forEach(el => el.style.display = "none");
+      document.querySelectorAll("input").forEach(el => el.classList.remove("validation-error"));
+      
+      // Actualizar la vista
+      actualizarVistaDatos();
+      toggleOrigenInput();
     }
     
     function generarTrama() {
+      // Validar campos
+      let isValid = true;
+      
+      // Validar origen personalizado si está seleccionado
+      if (document.getElementById("origen").value === "custom") {
+        isValid = validateHexOrDecimal(document.getElementById("origenCustom"), 0, 255) && isValid;
+      }
+      
+      // Validar destinos
+      isValid = validateDestinos() && isValid;
+      
+      // Validar campos específicos según la función
       const func = document.getElementById("function").value;
+      
+      if (func === "C2") {
+        isValid = validateHexOrDecimal(document.getElementById("rVal"), 0, 255) && isValid;
+        isValid = validateHexOrDecimal(document.getElementById("gVal"), 0, 255) && isValid;
+        isValid = validateHexOrDecimal(document.getElementById("bVal"), 0, 255) && isValid;
+      } else if (func === "CA") {
+        isValid = validateNumber(document.getElementById("minVal")) && isValid;
+        isValid = validateNumber(document.getElementById("maxVal")) && isValid;
+        isValid = validateNumber(document.getElementById("valVal")) && isValid;
+      } else if (func === "B1") {
+        isValid = validateHexOrDecimal(document.getElementById("elemId"), 0, 255) && isValid;
+      } else if (func === "B2") {
+        isValid = validateHexOrDecimal(document.getElementById("elemMode"), 0, 15) && isValid;
+      } else if (func === "B3") {
+        isValid = validateHexOrDecimal(document.getElementById("elemDeaf"), 0, 255) && isValid;
+      } else if (func === "CC") {
+        isValid = validateHexOrDecimal(document.getElementById("fileBank"), 0, 255) && isValid;
+        isValid = validateHexOrDecimal(document.getElementById("fileNum"), 0, 255) && isValid;
+      } else if (func === "CD") {
+        isValid = validateHexOrDecimal(document.getElementById("patternNum"), 0, 255) && isValid;
+      }
+      
+      if (!isValid) {
+        // Mostrar mensaje de error
+        const toast = document.createElement("div");
+        toast.className = "copy-toast";
+        toast.style.backgroundColor = "var(--danger-color)";
+        toast.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Por favor corrija los errores en el formulario';
+        document.body.appendChild(toast);
+        setTimeout(() => {
+          toast.remove();
+        }, 2000);
+        return;
+      }
+      
       const origen = (document.getElementById("origen").value === "custom")
         ? parseInt(document.getElementById("origenCustom").value,16)
         : parseInt(document.getElementById("origen").value,16);
       const targetsStr = document.getElementById("destino").value.trim();
-      const targets = targetsStr ? targetsStr.split(" ").map(d => parseInt(d,16)) : [0xDD];
+      const targets = targetsStr ? targetsStr.split(" ").map(d => parseInt(d.replace(/^0x/i, ""),16)) : [0xDD];
       let data = [];
       // Seleccionar los datos según la función:
       if(func==="A0") {
@@ -876,6 +1807,9 @@
       } else if(func==="CF") {
         const cmdVal = parseInt(document.getElementById("commandSel").value);
         data = [cmdVal];
+      } else if(func==="B1") {
+        // F_SET_ELEM_ID
+        data = [parseColorValue(document.getElementById("elemId").value)];
       } else if(func==="B2") {
         // F_SET_ELEM_MODE
         data = [parseInt(document.getElementById("elemMode").value, 16)];
@@ -929,6 +1863,9 @@
       setTimeout(() => {
         document.getElementById("tramaHex").classList.remove("fade-in");
       }, 300);
+      
+      // Actualizar la estructura visual de la trama
+      actualizarEstructuraTrama();
     }
     
     function copiarTrama(){
